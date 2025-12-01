@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dodge the Falling Objects</title>
+    <link rel="stylesheet" href="./index.css" />
+  </head>
+  <body>
+    <main class="page">
+      <section class="game-shell">
+        <header class="game-header">
+          <h1 class="game-title">Dodge the Falling Objects</h1>
+          <div class="game-stats">
+            <div class="stat">
+              <span class="stat-label">Time</span>
+              <span id="current-time" class="stat-value">0.00s</span>
+            </div>
+            <div class="stat">
+              <span class="stat-label">Best</span>
+              <span id="best-time" class="stat-value">0.00s</span>
+            </div>
+          </div>
+        </header>
+
+        <div class="game-wrapper">
+          <div id="game-area" class="game-area">
+            <div id="player" class="player"></div>
+
+            <div id="overlay" class="overlay overlay--hidden" aria-hidden="true">
+              <div class="overlay-content">
+                <h2 class="overlay-title" id="overlay-title">Game Over</h2>
+                <p class="overlay-text">
+                  Survived for <span id="final-time">0.00s</span>
+                </p>
+                <button id="restart-button" class="btn-primary" type="button">
+                  Play Again
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <footer class="game-footer">
+          <p class="hint">
+            Controls: <span class="hint-key">←</span> <span class="hint-key">→</span>
+            or <span class="hint-key">A</span> <span class="hint-key">D</span> to move.
+            Press <span class="hint-key">Space</span> to start.
+          </p>
+        </footer>
+      </section>
+    </main>
+
+    <script src="./index.js"></script>
+  </body>
+</html>
+
+
