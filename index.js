@@ -10,7 +10,7 @@ const GAME_CONFIG = {
   maxObstacles: 8,
 };
 
-// DOM references and basic state containers
+// using document.getElementById to get the elements from the HTML
 const gameArea = document.getElementById("game-area");
 const playerEl = document.getElementById("player");
 const overlayEl = document.getElementById("overlay");
@@ -19,12 +19,10 @@ const currentTimeEl = document.getElementById("current-time");
 const bestTimeEl = document.getElementById("best-time");
 const finalTimeEl = document.getElementById("final-time");
 
-/** @type {{x: number}} */
 const playerState = {
   x: 0,
 };
 
-/** @type {{el: HTMLElement, x: number, y: number, speed: number}[]} */
 let activeObstacles = [];
 
 const inputState = {
