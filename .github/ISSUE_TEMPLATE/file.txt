@@ -1,5 +1,0 @@
-bug_report.md
-config.yml
-documentation.md
-enhancement.md
-feature_request.md
