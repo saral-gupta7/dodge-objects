@@ -42,7 +42,7 @@ const gameState = {
   frameHandle: null,
 };
 
-// Persistence helpers for best time
+// Persist best time between page reloads
 const BEST_TIME_STORAGE_KEY = "dodgeGame.bestTimeSeconds";
 
 function loadBestTime() {
