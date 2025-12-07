@@ -1,29 +1,101 @@
-### Dodge Object Game
+# Dodge Object Game
 
-**A simple game to learn HTML, CSS, and JavaScript foundations**
+<a href="https://winter-of-open-source.vercel.app/"><img src="assets/banner.png"></a>
 
-This project is a **simple browser game** where the player must dodge falling objects. It is designed to help **students build strong foundations in front-end web development**.
+[![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat&logo=html5&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/HTML) [![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=flat&logo=css3&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/CSS) [![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat&logo=javascript&logoColor=black)](https://developer.mozilla.org/en-US/docs/Web/JavaScript) <a href="https://gdg.community.dev/gdg-on-campus-indian-institute-of-engineering-science-and-technology-shibpur-howrah-india/"><img src="assets/gdsc-logo.png" alt="GDGoC IIEST Shibpur" height="20"></a> <a href="https://www.codeiiest.in/"><img src="assets/codeiiest-logo.png" alt="CodeIIEST" height="20"></a> [![Winter of Open Source](https://img.shields.io/badge/Winter%20of%20Open%20Source-2025-purple)](https://winter-of-open-source.vercel.app/)
 
-- **Purpose of the game**
-  - **HTML**: Understand how to structure a web page using elements like `div`, `canvas`, buttons, and text.
-  - **CSS**: Learn how to style the page and game area (colors, layouts, fonts, animations, and responsive design).
-  - **JavaScript**: Practice adding behavior and logic (movement, collision detection, scoring, game loop, keyboard events).
+## Project Description
 
-- **What students will learn**
-  - **HTML basics**: tags, attributes, semantic structure.
-  - **CSS fundamentals**: selectors, classes/ids, positioning, sizing, and styling the game elements.
-  - **Core JavaScript concepts**:
-    - Variables, functions, and events (like key presses).
-    - Updating the page dynamically with the DOM or canvas.
-    - Simple game logic (speed, difficulty, scores, win/lose conditions).
+**Dodge Object Game** is a web-based browser game built **from scratch using vanilla JavaScript** (no external game frameworks).
 
-- **How to use this project in class**
-  - Start from a working version of the game and walk through the **HTML layout**.
-  - Show how changing **CSS rules** affects the look and feel.
-  - Explore the **JavaScript file** to see how the player moves, how objects fall, and how the game decides if the player was hit.
-  - Encourage students to make small changes:
-    - Change colors and fonts.
-    - Adjust speed or number of falling objects.
-    - Add new rules or effects.
+This project is part of **IIEST, Shibpur's** **[Winter of Open Source](https://winter-of-open-source.vercel.app/)**, where contributors will:
+- Implement game mechanics using vanilla JavaScript
+- Understand game loops, collision detection, and DOM manipulation
+- Build a fully functional game without using any prebuilt game frameworks
 
-This game is meant as a **hands-on, beginner-friendly project** that makes learning HTML, CSS, and JavaScript more fun and interactive.
+### What You'll Build
+
+| Component | Current Status | What Needs To Be Done |
+|-----------|---------------|----------------------|
+| **Gameplay** | 🟢 Core mechanics working | Add power-ups, different obstacle types, difficulty levels |
+| **UI/UX** | 🟡 Basic interface | Improve animations, add sound effects, better visual feedback |
+
+## Web Interface
+
+<p align="center">
+  <img src="assets/image.png" alt="Dodge Object Game Interface" width="1000">
+</p>
+
+## Demo
+
+Visit the live demo: [Dodge Object Game](https://dodge-object-game.vercel.app)
+
+---
+
+## Contribution Workflow
+
+```
+1. Fork the repository
+2. Clone your fork: git clone https://github.com/YOUR_NAME/dodge-object-game.git
+3. Create a new branch: git checkout -b fix/issue-number-description
+4. Make changes and test thoroughly
+5. Commit with proper message: git commit -m "Fixes #<issue-number>: description"
+6. Push & create PR: git push origin fix/issue-number-description
+```
+
+> See [CONTRIBUTING.md](CONTRIBUTING.md) for detailed setup instructions and guidelines.
+
+
+## Communication
+
+- **Discord**: [Winter of Open Source Server](https://discord.gg/your-invite-link)
+- **Issues**: Comment on issues to reach maintainers
+
+## Installation
+
+```bash
+git clone https://github.com/saral-gupta7/dodge-object-game.git
+cd dodge-object-game
+
+# Open directly in browser
+open index.html
+
+# Or use a local server (recommended)
+python -m http.server 8000
+# Then visit http://localhost:8000
+```
+
+## Project Structure
+
+```
+dodge-object-game/
+│
+├── .github/
+│   ├── ISSUE_TEMPLATE/
+│   │   ├── bug_report.md
+│   │   ├── feature_request.md
+│   │   └── documentation.md
+│   └── pull_request_template.md
+│
+├── assets/           # Images, logos, screenshots
+├── CSS/
+│   └── index.css     # Styles for the game UI
+├── JS/
+│   └── index.js      # Game logic and mechanics
+│
+├── index.html        # Main HTML file
+├── CONTRIBUTING.md   # Contribution guidelines
+├── CODE_OF_CONDUCT.md
+├── LICENSE
+└── README.md
+```
+
+## Code of Conduct
+
+Please follow [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) to ensure a welcoming and productive environment for all contributors.
+
+---
+
+<p align="center">
+Made with ❤️ by <a href="https://github.com/ConsoleCzar-2">ConsoleCzar</a>
+</p>
