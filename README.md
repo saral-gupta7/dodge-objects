@@ -32,7 +32,7 @@ This project is part of **IIEST, Shibpur's** **[Winter of Open Source](https://w
 
 ```
 1. Fork the repository
-2. Clone your fork: git clone https://github.com/YOUR_NAME/dodge-object-game.git
+2. Clone your fork: git clone https://github.com/YOUR_NAME/dodge-objects.git
 3. Create a new branch: git checkout -b fix/issue-number-description
 4. Make changes and test thoroughly
 5. Commit with proper message: git commit -m "Fixes #<issue-number>: description"
@@ -50,8 +50,8 @@ This project is part of **IIEST, Shibpur's** **[Winter of Open Source](https://w
 ## Installation
 
 ```bash
-git clone https://github.com/saral-gupta7/dodge-object-game.git
-cd dodge-object-game
+git clone https://github.com/saral-gupta7/dodge-objects.git
+cd dodge-objects
 
 # Open directly in browser
 open index.html
