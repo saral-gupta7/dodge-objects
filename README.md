@@ -97,5 +97,5 @@ Please follow [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) to ensure a welcoming and
 ---
 
 <p align="center">
-Made with ❤️ by <a href="https://github.com/ConsoleCzar-2">ConsoleCzar</a>
+Made with ❤️ by <a href="https://github.com/saral-gupta7">saral-gupta7</a>
 </p>
