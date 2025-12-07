@@ -26,10 +26,6 @@ This project is part of **IIEST, Shibpur's** **[Winter of Open Source](https://w
   <img src="assets/image.png" alt="Dodge Object Game Interface" width="1000">
 </p>
 
-## Demo
-
-Visit the live demo: [Dodge Object Game](https://dodge-object-game.vercel.app)
-
 ---
 
 ## Contribution Workflow
