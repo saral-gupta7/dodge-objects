@@ -36,8 +36,8 @@ We're excited to have you contribute to this Dodge the Falling Objects game proj
 2. **Clone your fork**
 
 ```bash
-git clone https://github.com/YOUR_NAME/dodge-object-game.git
-cd dodge-object-game
+git clone https://github.com/YOUR_NAME/dodge-objects.git
+cd dodge-objects
 ```
 
 3. **Open in your browser**
