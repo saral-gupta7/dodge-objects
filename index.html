@@ -27,14 +27,18 @@
           <div id="game-area" class="game-area">
             <div id="player" class="player"></div>
 
-            <div id="overlay" class="overlay overlay--hidden" aria-hidden="true">
+            <div
+              id="overlay"
+              class="overlay overlay--hidden"
+              aria-hidden="true"
+            >
               <div class="overlay-content">
                 <h2 class="overlay-title" id="overlay-title">Game Over</h2>
                 <p class="overlay-text">
                   Survived for <span id="final-time">0.00s</span>
                 </p>
                 <button id="restart-button" class="btn-primary" type="button">
-                  Play Again
+                  Restart
                 </button>
               </div>
             </div>
@@ -43,9 +47,10 @@
 
         <footer class="game-footer">
           <p class="hint">
-            Controls: <span class="hint-key">←</span> <span class="hint-key">→</span>
-            or <span class="hint-key">A</span> <span class="hint-key">D</span> to move.
-            Press <span class="hint-key">Space</span> to start.
+            Controls: <span class="hint-key">←</span>
+            <span class="hint-key">→</span> or <span class="hint-key">A</span>
+            <span class="hint-key">D</span> to move. Press
+            <span class="hint-key">Space</span> to start.
           </p>
         </footer>
       </section>
@@ -54,5 +59,3 @@
     <script src="./JS/index.js"></script>
   </body>
 </html>
-
-

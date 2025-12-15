@@ -9,16 +9,17 @@
 **Dodge Object Game** is a web-based browser game built **from scratch using vanilla JavaScript** (no external game frameworks).
 
 This project is part of **IIEST, Shibpur's** **[Winter of Open Source](https://winter-of-open-source.vercel.app/)**, where contributors will:
+
 - Implement game mechanics using vanilla JavaScript
 - Understand game loops, collision detection, and DOM manipulation
 - Build a fully functional game without using any prebuilt game frameworks
 
 ### What You'll Build
 
-| Component | Current Status | What Needs To Be Done |
-|-----------|---------------|----------------------|
-| **Gameplay** | 🟢 Core mechanics working | Add power-ups, different obstacle types, difficulty levels |
-| **UI/UX** | 🟡 Basic interface | Improve animations, add sound effects, better visual feedback |
+| Component    | Current Status            | What Needs To Be Done                                         |
+| ------------ | ------------------------- | ------------------------------------------------------------- |
+| **Gameplay** | 🟢 Core mechanics working | Add power-ups, different obstacle types, difficulty levels    |
+| **UI/UX**    | 🟡 Basic interface        | Improve animations, add sound effects, better visual feedback |
 
 ## Web Interface
 
@@ -40,7 +41,6 @@ This project is part of **IIEST, Shibpur's** **[Winter of Open Source](https://w
 ```
 
 > See [CONTRIBUTING.md](CONTRIBUTING.md) for detailed setup instructions and guidelines.
-
 
 ## Communication
 
