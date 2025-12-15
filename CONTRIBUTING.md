@@ -2,7 +2,7 @@
 
 <a href="https://winter-of-open-source.vercel.app/"><img src="assets/banner.png"></a>
 
-Welcome to Winter of Open Source! 🎉    
+Welcome to Winter of Open Source! 🎉  
 We're excited to have you contribute to this Dodge the Falling Objects game project.
 
 ---
@@ -22,6 +22,7 @@ We're excited to have you contribute to this Dodge the Falling Objects game proj
 ## Setting Up Local Environment
 
 ### Prerequisites
+
 1. Basic knowledge of HTML, CSS, and JavaScript
 2. Understanding of DOM manipulation and event handling
 3. Git installed on your system
@@ -30,7 +31,7 @@ We're excited to have you contribute to this Dodge the Falling Objects game proj
 ### Installation
 
 1. **Fork the repository**
-   
+
    Click the "Fork" button at the top right of this repository.
 
 2. **Clone your fork**
@@ -69,19 +70,19 @@ This project has **no npm/yarn dependencies**. It's pure HTML, CSS, and JavaScri
 
 ### Step 1: Choose an Issue
 
-* Browse [open issues](../../issues)
-* Look for labels:
-  * `good first issue` / `beginner-friendly` – great for newcomers
-  * `easy`, `medium`, `hard` – based on difficulty
-  * `gameplay`, `ui`, `performance` – based on component
-  * `documentation`, `bug`, `feature`, `enhancement`
+- Browse [open issues](../../issues)
+- Look for labels:
+  - `good first issue` / `beginner-friendly` – great for newcomers
+  - `easy`, `medium`, `hard` – based on difficulty
+  - `gameplay`, `ui`, `performance` – based on component
+  - `documentation`, `bug`, `feature`, `enhancement`
 
 ### Step 2: Comment `/assign`
 
-* Comment `/assign` on the issue you want to work on
-* Wait for maintainer approval
-* **Only 1 person per issue at a time**
-* **Complete within 48 hours** or it gets unassigned
+- Comment `/assign` on the issue you want to work on
+- Wait for maintainer approval
+- **Only 1 person per issue at a time**
+- **Complete within 48 hours** or it gets unassigned
 
 ### Step 3: Create a Branch
 
@@ -90,16 +91,17 @@ git checkout -b fix/issue-number-short-description
 ```
 
 Example branch names:
-* `fix/23-improve-collision-detection`
-* `feature/45-add-power-ups`
-* `docs/12-improve-readme`
+
+- `fix/23-improve-collision-detection`
+- `feature/45-add-power-ups`
+- `docs/12-improve-readme`
 
 ### Step 4: Make Changes
 
-* Follow existing code style
-* Add meaningful comments explaining **why**, not just what
-* Test your changes thoroughly in multiple browsers
-* Keep commits atomic
+- Follow existing code style
+- Add meaningful comments explaining **why**, not just what
+- Test your changes thoroughly in multiple browsers
+- Keep commits atomic
 
 ### Step 5: Commit Changes
 
@@ -118,21 +120,23 @@ git commit -m "Fixes #23: Improve collision detection
 git push origin fix/issue-number-short-description
 ```
 
-* Go to your fork on GitHub → "Compare & pull request"
-* Fill out the PR template completely
-* Link the issue using `Fixes #<issue-number>`
+- Go to your fork on GitHub → "Compare & pull request"
+- Fill out the PR template completely
+- Link the issue using `Fixes #<issue-number>`
 
 ---
 
 ## How to Write a Clean PR
 
 ### Must Include:
+
 - Link to the issue: `Fixes #<issue-number>`
 - Clear description of what you changed
 - Screenshots (if UI changes)
 - Tested in multiple browsers
 
 ### Code Requirements:
+
 - Proper indentation (2 spaces for HTML/CSS/JS)
 - Meaningful comments
 - Use formatters (Prettier recommended)
@@ -140,42 +144,43 @@ git push origin fix/issue-number-short-description
 - **NO external game frameworks** – use vanilla JavaScript!
 
 ### PR Template :
+
 - Open `.github/pull_request_template.md` for guidance
 - Moreover, for other templates refer to the `.github/ISSUE_TEMPLATE/` folder
-  
+
 ## Scoring Rules
 
 ## Issue Labels
 
-| Label | Description |
-|-------|-------------|
-| `easy` | Beginner-friendly, small fixes |
-| `medium` | Moderate complexity, features |
-| `hard` | Complex tasks, major features |
-| `documentation` | Documentation improvements |
-| `bug` | Something isn't working |
-| `feature` | New feature request |
-| `good-first-issue` | Great for newcomers |
-| `beginner-friendly` | Suitable for beginners |
+| Label               | Description                    |
+| ------------------- | ------------------------------ |
+| `easy`              | Beginner-friendly, small fixes |
+| `medium`            | Moderate complexity, features  |
+| `hard`              | Complex tasks, major features  |
+| `documentation`     | Documentation improvements     |
+| `bug`               | Something isn't working        |
+| `feature`           | New feature request            |
+| `good-first-issue`  | Great for newcomers            |
+| `beginner-friendly` | Suitable for beginners         |
 
 ### Points Per PR
 
-| PR Type | Points |
-|---------|--------|
-| **Easy** | 10 |
-| **Medium** | 20 |
-| **Hard** | 40 |
-| **Documentation Fix** | 5 |
-| **Bug Fix** | 20 |
-| **Feature Addition** | 30 |
+| PR Type               | Points |
+| --------------------- | ------ |
+| **Easy**              | 10     |
+| **Medium**            | 20     |
+| **Hard**              | 40     |
+| **Documentation Fix** | 5      |
+| **Bug Fix**           | 20     |
+| **Feature Addition**  | 30     |
 
 ### Bonuses
 
-| Bonus | Points |
-|-------|--------|
-|**First 10 PRs** | +10 |
-| **First PR of the Week** (resets Monday 12 AM) | +10 |
-| **Most Impactful PR **(decided at end) | +50 |
+| Bonus                                          | Points |
+| ---------------------------------------------- | ------ |
+| **First 10 PRs**                               | +10    |
+| **First PR of the Week** (resets Monday 12 AM) | +10    |
+| **Most Impactful PR **(decided at end)         | +50    |
 
 ### Rules
 
@@ -191,20 +196,20 @@ Before you start contributing, we **strongly recommend** learning the fundamenta
 
 ### Game Development - Essential Reading
 
-| Resource | Description |
-|----------|-------------|
-| [MDN Game Development](https://developer.mozilla.org/en-US/docs/Games) | Comprehensive guide to browser game development |
-| [RequestAnimationFrame Guide](https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame) | Understanding the game loop |
-| [Collision Detection](https://developer.mozilla.org/en-US/docs/Games/Techniques/2D_collision_detection) | Techniques for detecting collisions |
-| [Keyboard Events](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent) | Handling user input |
+| Resource                                                                                                     | Description                                     |
+| ------------------------------------------------------------------------------------------------------------ | ----------------------------------------------- |
+| [MDN Game Development](https://developer.mozilla.org/en-US/docs/Games)                                       | Comprehensive guide to browser game development |
+| [RequestAnimationFrame Guide](https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame) | Understanding the game loop                     |
+| [Collision Detection](https://developer.mozilla.org/en-US/docs/Games/Techniques/2D_collision_detection)      | Techniques for detecting collisions             |
+| [Keyboard Events](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent)                            | Handling user input                             |
 
 ### Game Mechanics - Suggested Readings
 
-| Resource | Description |
-|----------|-------------|
-| [Game Loop Patterns](https://gameprogrammingpatterns.com/game-loop.html) | Understanding game loop architecture |
-| [2D Game Physics](https://developer.mozilla.org/en-US/docs/Games/Techniques/2D_collision_detection) | Basic physics for 2D games |
-| [Performance Optimization](https://developer.mozilla.org/en-US/docs/Games/Techniques/Performance_techniques) | Optimizing game performance |
+| Resource                                                                                                     | Description                          |
+| ------------------------------------------------------------------------------------------------------------ | ------------------------------------ |
+| [Game Loop Patterns](https://gameprogrammingpatterns.com/game-loop.html)                                     | Understanding game loop architecture |
+| [2D Game Physics](https://developer.mozilla.org/en-US/docs/Games/Techniques/2D_collision_detection)          | Basic physics for 2D games           |
+| [Performance Optimization](https://developer.mozilla.org/en-US/docs/Games/Techniques/Performance_techniques) | Optimizing game performance          |
 
 ### Additional Resources
 
@@ -212,8 +217,7 @@ Before you start contributing, we **strongly recommend** learning the fundamenta
 - [CSS Animations](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Animations) – for smooth visual effects
 - [LocalStorage API](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage) – for saving game state
 
-> [!IMPORTANT]
-> **Do NOT use game frameworks like Phaser, Three.js, or similar.** The goal is to understand and implement game mechanics yourself using vanilla JavaScript!
+> [!IMPORTANT] > **Do NOT use game frameworks like Phaser, Three.js, or similar.** The goal is to understand and implement game mechanics yourself using vanilla JavaScript!
 
 ---
 
@@ -266,6 +270,7 @@ function gameLoop(timestamp) {
 - **No plagiarism**
 - Keeep **AI** use **minimal** and **relevant**, i.e. only for assistance, not for entire code
 - **NO external game frameworks** – implement from scratch
+
 ---
 
 <p align="center">
