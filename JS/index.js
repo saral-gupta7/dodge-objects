@@ -300,4 +300,19 @@ if (document.readyState === "loading") {
   bootstrap();
 }
 
+const soundToggleBtn = document.getElementById("sound-toggle");
+const soundIcon = document.getElementById("sound-icon");
 
+let isSoundOn = true;
+
+if (soundToggleBtn && soundIcon) {
+  soundToggleBtn.addEventListener("click", () => {
+    isSoundOn = !isSoundOn;
+
+    soundIcon.src = isSoundOn
+      ? "./assets/Sound_ON.png"
+      : "./assets/Sound_OFF.png";
+
+    soundIcon.alt = isSoundOn ? "Sound On" : "Sound Off";
+  });
+}
