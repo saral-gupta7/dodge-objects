@@ -18,15 +18,21 @@
 
           <!-- 🔊 SOUND TOGGLE BUTTON (UI ONLY) -->
           <div class="game-stats">
+            <button id="sound-toggle" class="sound-toggle-header" aria-label="Toggle sound" title="Toggle sound">
+              <img id="sound-icon" src="./assets/Sound_On.png" alt="Sound On" />
+            </button>
+
             <div class="stat">
               <span class="stat-label">Time</span>
               <span id="current-time" class="stat-value">0.00s</span>
             </div>
+
             <div class="stat">
               <span class="stat-label">Best</span>
               <span id="best-time" class="stat-value">0.00s</span>
             </div>
           </div>
+
         </header>
 
         <!-- GAME AREA -->
@@ -59,9 +65,6 @@
             to move. Press
             <span class="hint-key">Space</span>
             to start.
-            <button id="sound-toggle" class="sound-toggle" aria-label="Toggle sound" title="Toggle sound">
-              <img id="sound-icon" src="./assets/Sound_ON.png" alt="Sound On" />
-            </button>
           </p>
         </footer>
 

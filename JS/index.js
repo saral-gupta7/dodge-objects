@@ -308,44 +308,42 @@ const bgMusic = new Audio("./assets/bg.mp3");
 bgMusic.loop = true;
 bgMusic.volume = 0.35;
 
-// Sound state (default ON, but NO autoplay)
+// Sound state (default ON, no autoplay)
 let isSoundOn = true;
 
-// Toggle button logic
-if (soundToggleBtn && soundIcon) {
-  soundToggleBtn.addEventListener("click", () => {
-    isSoundOn = !isSoundOn;
+/* =============================== */
+/* Toggle Button Logic */
+/* =============================== */
+soundToggleBtn.addEventListener("click", () => {
+  isSoundOn = !isSoundOn;
 
-    // Update icon
-    soundIcon.src = isSoundOn
-      ? "./assets/Sound_ON.png"
-      : "./assets/Sound_OFF.png";
+  soundIcon.src = isSoundOn
+    ? "./assets/Sound_On.png"
+    : "./assets/Sound_Off.png";
 
-    soundIcon.alt = isSoundOn ? "Sound On" : "Sound Off";
+  soundIcon.alt = isSoundOn ? "Sound On" : "Sound Off";
 
-    // Control background music
-    if (isSoundOn) {
-      if (gameState.running) {
-        bgMusic.play();
-      }
-    } else {
-      bgMusic.pause();
-    }
-  });
-}
+  if (isSoundOn && gameState.running) {
+    bgMusic.play().catch(() => {});
+  } else {
+    bgMusic.pause();
+  }
+});
 
-// Play music when game starts (only if sound is ON)
+/* =============================== */
+/* Game Lifecycle Hooks */
+/* =============================== */
+
 const originalStartGame = startGame;
 startGame = function () {
   originalStartGame();
 
   if (isSoundOn) {
     bgMusic.currentTime = 0;
-    bgMusic.play();
+    bgMusic.play().catch(() => {});
   }
 };
 
-// Stop music when game ends
 const originalEndGame = endGame;
 endGame = function () {
   originalEndGame();

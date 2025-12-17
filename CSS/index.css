@@ -246,56 +246,33 @@
     margin-bottom: 5px; /* On some smaller devices the footer sticked to the bottom , so to avoid that gave a small margin bottom */
   }
 }
+/* ===================================== */
+/* Sound Toggle (Image Based) */
+/* ===================================== */
 
-/* =============================== */
-/* Futuristic Sound Toggle Button */
-/* =============================== */
-
-.sound-toggle {
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  border: none;
+.sound-toggle-header {
   background: transparent;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  cursor: pointer;
+  border: none;
   padding: 0;
 
-  box-shadow:
-    0 0 0 2px rgba(59, 130, 246, 0.25),
-    0 0 18px rgba(59, 130, 246, 0.45);
+  cursor: pointer;
 
-  transition:
-    transform 0.15s ease,
-    box-shadow 0.15s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
-/* Icon image */
-.sound-toggle img {
-  width: 40px;
-  height: 40px;
-  object-fit: contain;
-  background: transparent;
-  pointer-events: none;
+.sound-toggle-header img {
+  width: 29px;
+  height: 28px;
+  display: block;
 }
 
-/* Hover glow */
-.sound-toggle:hover {
-  transform: scale(1.1);
-  box-shadow:
-    0 0 0 2px rgba(34, 197, 94, 0.4),
-    0 0 24px rgba(34, 197, 94, 0.7);
+/* Optional subtle hover */
+.sound-toggle-header:hover {
+  transform: scale(1.08);
 }
 
-/* Click feedback */
-.sound-toggle:active {
+.sound-toggle-header:active {
   transform: scale(0.95);
-}
-
-.sound-toggle {
-  animation: float 2s ease-in-out infinite;
 }
