@@ -303,16 +303,51 @@ if (document.readyState === "loading") {
 const soundToggleBtn = document.getElementById("sound-toggle");
 const soundIcon = document.getElementById("sound-icon");
 
+// Background music
+const bgMusic = new Audio("./assets/bg.mp3");
+bgMusic.loop = true;
+bgMusic.volume = 0.35;
+
+// Sound state (default ON, but NO autoplay)
 let isSoundOn = true;
 
+// Toggle button logic
 if (soundToggleBtn && soundIcon) {
   soundToggleBtn.addEventListener("click", () => {
     isSoundOn = !isSoundOn;
 
+    // Update icon
     soundIcon.src = isSoundOn
       ? "./assets/Sound_ON.png"
       : "./assets/Sound_OFF.png";
 
     soundIcon.alt = isSoundOn ? "Sound On" : "Sound Off";
+
+    // Control background music
+    if (isSoundOn) {
+      if (gameState.running) {
+        bgMusic.play();
+      }
+    } else {
+      bgMusic.pause();
+    }
   });
 }
+
+// Play music when game starts (only if sound is ON)
+const originalStartGame = startGame;
+startGame = function () {
+  originalStartGame();
+
+  if (isSoundOn) {
+    bgMusic.currentTime = 0;
+    bgMusic.play();
+  }
+};
+
+// Stop music when game ends
+const originalEndGame = endGame;
+endGame = function () {
+  originalEndGame();
+  bgMusic.pause();
+};
