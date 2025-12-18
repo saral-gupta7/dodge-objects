@@ -1,4 +1,3 @@
-
 // Game configuration
 const GAME_CONFIG = {
   playerSpeed: 360,
@@ -54,7 +53,10 @@ function loadBestTime() {
 
 function saveBestTime(seconds) {
   if (!Number.isFinite(seconds) || seconds <= 0) return;
-  window.localStorage.setItem(BEST_TIME_STORAGE_KEY, String(seconds.toFixed(2)));
+  window.localStorage.setItem(
+    BEST_TIME_STORAGE_KEY,
+    String(seconds.toFixed(2))
+  );
 }
 
 // Input handling
@@ -62,7 +64,11 @@ function handleKeyDown(event) {
   if (event.key === "ArrowLeft" || event.key === "a" || event.key === "A") {
     inputState.left = true;
     event.preventDefault();
-  } else if (event.key === "ArrowRight" || event.key === "d" || event.key === "D") {
+  } else if (
+    event.key === "ArrowRight" ||
+    event.key === "d" ||
+    event.key === "D"
+  ) {
     inputState.right = true;
     event.preventDefault();
   } else if (event.key === " " && !gameState.running) {
@@ -75,7 +81,11 @@ function handleKeyUp(event) {
   if (event.key === "ArrowLeft" || event.key === "a" || event.key === "A") {
     inputState.left = false;
     event.preventDefault();
-  } else if (event.key === "ArrowRight" || event.key === "d" || event.key === "D") {
+  } else if (
+    event.key === "ArrowRight" ||
+    event.key === "d" ||
+    event.key === "D"
+  ) {
     inputState.right = false;
     event.preventDefault();
   }
@@ -115,7 +125,8 @@ function endGame() {
 
   const survivedSeconds = gameState.elapsed / 1000;
   const previousBest = gameState.bestTime;
-  const newBest = survivedSeconds > previousBest ? survivedSeconds : previousBest;
+  const newBest =
+    survivedSeconds > previousBest ? survivedSeconds : previousBest;
   gameState.bestTime = newBest;
 
   if (survivedSeconds > previousBest) {
@@ -164,7 +175,12 @@ function centerPlayer() {
 function movePlayer(deltaSeconds) {
   if (!inputState.left && !inputState.right) return;
 
-  const direction = inputState.left && !inputState.right ? -1 : inputState.right && !inputState.left ? 1 : 0;
+  const direction =
+    inputState.left && !inputState.right
+      ? -1
+      : inputState.right && !inputState.left
+      ? 1
+      : 0;
   if (!direction) return;
 
   const distance = direction * GAME_CONFIG.playerSpeed * deltaSeconds;
@@ -204,7 +220,16 @@ function createObstacle() {
     el: obstacleEl,
     x,
     y: -42,
-    speed: gameState.obstacleSpeed,
+    speed: gameState.obstacleSpeed * (0.85 + Math.random() * 0.3),
+    // defining the gravity for variable speed
+    gravity: 40 + Math.random() * 30,
+    // defining the wobble variables
+    wobbleAmplitude: Math.random() * 18 + 6,
+    wobbleSpeed: Math.random() * 2 + 1,
+    wobbleOffset: Math.random() * Math.PI * 2,
+    // defining the rotation variables
+    rotation: Math.random() * 360,
+    rotationSpeed: (Math.random() - 0.5) * 180,
   };
 
   activeObstacles.push(obstacle);
@@ -216,8 +241,24 @@ function updateObstacles(deltaSeconds) {
 
   for (let i = activeObstacles.length - 1; i >= 0; i -= 1) {
     const obstacle = activeObstacles[i];
+    // gravity driven variable speed
+    obstacle.speed += obstacle.gravity * deltaSeconds;
     obstacle.y += obstacle.speed * deltaSeconds;
     obstacle.el.style.top = `${obstacle.y}px`;
+    // for wobble effect
+    obstacle.x +=
+      Math.sin(
+        gameState.elapsed * 0.001 * obstacle.wobbleSpeed + obstacle.wobbleOffset
+      ) *
+      obstacle.wobbleAmplitude *
+      deltaSeconds;
+
+    // for rotation
+    obstacle.rotation += obstacle.rotationSpeed * deltaSeconds;
+
+    obstacle.el.style.top = `${obstacle.y}px`;
+    obstacle.el.style.left = `${obstacle.x}px`;
+    obstacle.el.style.transform = `rotate(${obstacle.rotation}deg)`;
 
     if (obstacle.y > floorY) {
       obstacle.el.remove();
@@ -299,5 +340,3 @@ if (document.readyState === "loading") {
 } else {
   bootstrap();
 }
-
-
