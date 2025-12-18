@@ -9,6 +9,12 @@ const GAME_CONFIG = {
   spawnIntervalStep: 16,
   maxObstacles: 8,
 };
+// Difficulty configuration(newly added)
+const DIFFICULTY_CONFIG = {
+  levelDuration: 10000, 
+  maxLevel: 15,
+};
+
 
 // using document.getElementById to get the elements from the HTML
 const gameArea = document.getElementById("game-area");
@@ -40,6 +46,9 @@ const gameState = {
   timeSinceLastSpawn: 0,
   bestTime: 0,
   frameHandle: null,
+  //initialised for difficulty level tracking(newly added)
+  difficultyLevel: 0,
+
 };
 
 // Persist best time between page reloads
@@ -94,6 +103,9 @@ function startGame() {
   gameState.obstacleSpeed = GAME_CONFIG.obstacleSpeedStart;
   gameState.spawnInterval = GAME_CONFIG.spawnIntervalStart;
   gameState.timeSinceLastSpawn = 0;
+  //resetting difficulty level to 0(newly added)
+  gameState.difficultyLevel = 0;
+
 
   centerPlayer();
   updateTimeDisplays(0, gameState.bestTime);
@@ -128,6 +140,38 @@ function endGame() {
   overlayEl.classList.remove("overlay--hidden");
   overlayEl.setAttribute("aria-hidden", "false");
 }
+// Difficulty adjustment based on elapsed time(newly added)
+function updateDifficulty(elapsedMs) {
+  const level = Math.min(
+    Math.floor(elapsedMs / DIFFICULTY_CONFIG.levelDuration),
+    DIFFICULTY_CONFIG.maxLevel
+  );
+
+  if (level === gameState.difficultyLevel) return;
+
+  gameState.difficultyLevel = level;
+
+  // Faster objects
+  gameState.obstacleSpeed =
+    GAME_CONFIG.obstacleSpeedStart +
+    level * GAME_CONFIG.obstacleSpeedIncrement;
+
+  // Shorter spawn interval
+  gameState.spawnInterval = Math.max(
+    GAME_CONFIG.spawnIntervalMin,
+    GAME_CONFIG.spawnIntervalStart -
+      level * GAME_CONFIG.spawnIntervalStep
+  );
+// Debug output to console
+ /*  console.log(
+  "Level:", level,
+  "Speed:", gameState.obstacleSpeed,
+  "Spawn:", gameState.spawnInterval,
+  "MaxObs:", 4 + level
+); */
+
+}
+
 
 // Game loop and mechanics
 function gameLoop(timestamp) {
@@ -138,6 +182,8 @@ function gameLoop(timestamp) {
   gameState.lastFrameTime = timestamp;
 
   gameState.elapsed = timestamp - gameState.startTime;
+  // Update difficulty based on elapsed time (newly added)
+  updateDifficulty(gameState.elapsed);
   updateTimeDisplays(gameState.elapsed / 1000, gameState.bestTime);
 
   movePlayer(deltaSeconds);
@@ -180,23 +226,35 @@ function movePlayer(deltaSeconds) {
   playerEl.style.left = `${nextX}px`;
 }
 
-// Obstacle management
+// Obstacle management 
 function createObstacle() {
-  if (activeObstacles.length >= GAME_CONFIG.maxObstacles) {
+
+ /*  if (activeObstacles.length >= GAME_CONFIG.maxObstacles) {
     return;
-  }
+  } */
+ //dynamic max obstacles based on difficulty level(newly added)
+ const dynamicMax = 4 + gameState.difficultyLevel;
+if (activeObstacles.length >= dynamicMax) return;
+
 
   const obstacleEl = document.createElement("div");
   obstacleEl.className = "obstacle";
 
   const areaRect = gameArea.getBoundingClientRect();
-  const obstacleRectWidth = 32;
+ //
+  // const obstacleRectWidth = 32;
   const padding = 4;
-  const x =
-    Math.random() * (areaRect.width - obstacleRectWidth - padding * 2) +
+  // Random size between 20px and 46px
+  const size = 20 + Math.random() * 26; // 20px–46px
+ // Set size
+  obstacleEl.style.width = `${size}px`;
+  obstacleEl.style.height = `${size}px`;
+ // Random horizontal position within game area
+ 
+ const x =
+    Math.random() * (areaRect.width - size - padding * 2) +
     padding;
-
-  obstacleEl.style.left = `${x}px`;
+   obstacleEl.style.left = `${x}px`;
   obstacleEl.style.top = "-42px";
   gameArea.appendChild(obstacleEl);
 
@@ -228,22 +286,23 @@ function updateObstacles(deltaSeconds) {
 
 function maybeSpawnObstacle(deltaMs) {
   gameState.timeSinceLastSpawn += deltaMs;
-
+//initially difficulty was increasaing based on obstacle spawned
   if (gameState.timeSinceLastSpawn < gameState.spawnInterval) {
     return;
   }
 
   createObstacle();
   gameState.timeSinceLastSpawn = 0;
-
-  if (gameState.spawnInterval > GAME_CONFIG.spawnIntervalMin) {
+// Difficulty increase removed from here
+  /* if (gameState.spawnInterval > GAME_CONFIG.spawnIntervalMin) {
     gameState.spawnInterval = Math.max(
       GAME_CONFIG.spawnIntervalMin,
       gameState.spawnInterval - GAME_CONFIG.spawnIntervalStep
     );
   }
 
-  gameState.obstacleSpeed += GAME_CONFIG.obstacleSpeedIncrement;
+  gameState.obstacleSpeed += GAME_CONFIG.obstacleSpeedIncrement; 
+   *///now after commenting this difficulty increased has no relation with spawning
 }
 
 function clearObstacles() {
