@@ -81,6 +81,53 @@ function handleKeyUp(event) {
   }
 }
 
+const touchState = {
+  active: false,
+  startX: 0
+};
+
+function handleTouchStart(event) {
+  if (event.touches.length === 0) {
+    return;
+  }
+  const tap = event.touches[0];
+  touchState.active = true;
+  touchState.startX = tap.clientX;
+  if (!gameState.running) {
+    startGame();
+  }
+  event.preventDefault();
+}
+
+function handleTouchMove(event) {
+  if (!touchState.active) {
+    return;
+  }
+  if (event.touches.length === 0) {
+    return;
+  }
+  const tap = event.touches[0];
+  const deltaX = tap.clientX - touchState.startX;
+
+  if (Math.abs(deltaX) <= 12) {
+    inputState.left = false;
+    inputState.right = false;
+  } else if (deltaX < 0) {
+    inputState.left = true;
+    inputState.right = false;
+  } else {
+    inputState.left = false;
+    inputState.right = true;
+  }
+  event.preventDefault();
+}
+
+function handleTouchEnd() {
+  touchState.active = false;
+  inputState.left = false;
+  inputState.right = false;
+}
+
 // Core game lifecycle
 function startGame() {
   clearObstacles();
@@ -288,6 +335,16 @@ function bootstrap() {
   document.addEventListener("keydown", handleKeyDown);
   document.addEventListener("keyup", handleKeyUp);
   restartButtonEl.addEventListener("click", () => startGame());
+
+  gameArea.addEventListener("touchstart", handleTouchStart, { passive: false });
+  gameArea.addEventListener("touchmove", handleTouchMove, { passive: false });
+  gameArea.addEventListener("touchend", handleTouchEnd, { passive: false });
+  gameArea.addEventListener("touchcancel", handleTouchEnd, { passive: false });
+
+  overlayEl.addEventListener("touchstart", (e) => {
+    e.preventDefault();
+    if (!gameState.running) startGame();
+  }, { passive: false });
 
   gameState.bestTime = loadBestTime();
   centerPlayer();
