@@ -249,3 +249,33 @@
     margin-bottom: 5px; /* On some smaller devices the footer sticked to the bottom , so to avoid that gave a small margin bottom */
   }
 }
+/* ===================================== */
+/* Sound Toggle (Image Based) */
+/* ===================================== */
+
+.sound-toggle-header {
+  background: transparent;
+  border: none;
+  padding: 0;
+
+  cursor: pointer;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sound-toggle-header img {
+  width: 29px;
+  height: 28px;
+  display: block;
+}
+
+/* Optional subtle hover */
+.sound-toggle-header:hover {
+  transform: scale(1.08);
+}
+
+.sound-toggle-header:active {
+  transform: scale(0.95);
+}

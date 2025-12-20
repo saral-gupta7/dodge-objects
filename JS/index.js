@@ -357,4 +357,52 @@ if (document.readyState === "loading") {
   bootstrap();
 }
 
+const soundToggleBtn = document.getElementById("sound-toggle");
+const soundIcon = document.getElementById("sound-icon");
 
+// Background music
+const bgMusic = new Audio("./assets/bg.mp3");
+bgMusic.loop = true;
+bgMusic.volume = 0.35;
+
+// Sound state (default ON, no autoplay)
+let isSoundOn = true;
+
+/* =============================== */
+/* Toggle Button Logic */
+/* =============================== */
+soundToggleBtn.addEventListener("click", () => {
+  isSoundOn = !isSoundOn;
+
+  soundIcon.src = isSoundOn
+    ? "./assets/Sound_On.png"
+    : "./assets/Sound_Off.png";
+
+  soundIcon.alt = isSoundOn ? "Sound On" : "Sound Off";
+
+  if (isSoundOn && gameState.running) {
+    bgMusic.play().catch(() => {});
+  } else {
+    bgMusic.pause();
+  }
+});
+
+/* =============================== */
+/* Game Lifecycle Hooks */
+/* =============================== */
+
+const originalStartGame = startGame;
+startGame = function () {
+  originalStartGame();
+
+  if (isSoundOn) {
+    bgMusic.currentTime = 0;
+    bgMusic.play().catch(() => {});
+  }
+};
+
+const originalEndGame = endGame;
+endGame = function () {
+  originalEndGame();
+  bgMusic.pause();
+};

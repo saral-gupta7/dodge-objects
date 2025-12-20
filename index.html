@@ -1,37 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
+
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dodge the Falling Objects</title>
     <link rel="stylesheet" href="./CSS/index.css" />
   </head>
+
   <body>
     <main class="page">
       <section class="game-shell">
+
+        <!-- HEADER -->
         <header class="game-header">
           <h1 class="game-title">Dodge the Falling Objects</h1>
+
+          <!-- 🔊 SOUND TOGGLE BUTTON (UI ONLY) -->
           <div class="game-stats">
+            <button id="sound-toggle" class="sound-toggle-header" aria-label="Toggle sound" title="Toggle sound">
+              <img id="sound-icon" src="./assets/Sound_On.png" alt="Sound On" />
+            </button>
+
             <div class="stat">
               <span class="stat-label">Time</span>
               <span id="current-time" class="stat-value">0.00s</span>
             </div>
+
             <div class="stat">
               <span class="stat-label">Best</span>
               <span id="best-time" class="stat-value">0.00s</span>
             </div>
           </div>
+
         </header>
 
+        <!-- GAME AREA -->
         <div class="game-wrapper">
           <div id="game-area" class="game-area">
             <div id="player" class="player"></div>
 
-            <div
-              id="overlay"
-              class="overlay overlay--hidden"
-              aria-hidden="true"
-            >
+            <div id="overlay" class="overlay overlay--hidden" aria-hidden="true">
               <div class="overlay-content">
                 <h2 class="overlay-title" id="overlay-title">Game Over</h2>
                 <p class="overlay-text">
@@ -45,6 +54,7 @@
           </div>
         </div>
 
+        <!-- FOOTER -->
         <footer class="game-footer">
           <p class="hint">
             Controls: <span class="hint-key">←</span>
@@ -55,9 +65,11 @@
             <span class="hint-key">Tap</span> to start.
           </p>
         </footer>
+
       </section>
     </main>
 
     <script src="./JS/index.js"></script>
   </body>
+
 </html>
