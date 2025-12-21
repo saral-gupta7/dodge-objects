@@ -24,6 +24,7 @@ const restartButtonEl = document.getElementById("restart-button");
 const currentTimeEl = document.getElementById("current-time");
 const bestTimeEl = document.getElementById("best-time");
 const finalTimeEl = document.getElementById("final-time");
+const uiRestartBtn = document.getElementById("ui-restart-button");
 
 const playerState = {
   x: 0,
@@ -395,6 +396,10 @@ function bootstrap() {
   document.addEventListener("keyup", handleKeyUp);
   restartButtonEl.addEventListener("click", () => startGame());
 
+  uiRestartBtn.addEventListener("click", () => {
+    startGame();
+    uiRestartBtn.blur();
+  });
   gameArea.addEventListener("touchstart", handleTouchStart, { passive: false });
   gameArea.addEventListener("touchmove", handleTouchMove, { passive: false });
   gameArea.addEventListener("touchend", handleTouchEnd, { passive: false });
