@@ -450,6 +450,7 @@ if (document.readyState === "loading") {
   bootstrap();
 }
 
+// Sound Icon
 const soundToggleBtn = document.getElementById("sound-toggle");
 const soundIcon = document.getElementById("sound-icon");
 
