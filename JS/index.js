@@ -82,6 +82,53 @@ function handleKeyUp(event) {
   }
 }
 
+const touchState = {
+  active: false,
+  startX: 0
+};
+
+function handleTouchStart(event) {
+  if (event.touches.length === 0) {
+    return;
+  }
+  const tap = event.touches[0];
+  touchState.active = true;
+  touchState.startX = tap.clientX;
+  if (!gameState.running) {
+    startGame();
+  }
+  event.preventDefault();
+}
+
+function handleTouchMove(event) {
+  if (!touchState.active) {
+    return;
+  }
+  if (event.touches.length === 0) {
+    return;
+  }
+  const tap = event.touches[0];
+  const deltaX = tap.clientX - touchState.startX;
+
+  if (Math.abs(deltaX) <= 12) {
+    inputState.left = false;
+    inputState.right = false;
+  } else if (deltaX < 0) {
+    inputState.left = true;
+    inputState.right = false;
+  } else {
+    inputState.left = false;
+    inputState.right = true;
+  }
+  event.preventDefault();
+}
+
+function handleTouchEnd() {
+  touchState.active = false;
+  inputState.left = false;
+  inputState.right = false;
+}
+
 // Core game lifecycle
 function startGame() {
   clearObstacles();
@@ -294,6 +341,15 @@ function bootstrap() {
     startGame();
     uiRestartBtn.blur();
   });
+  gameArea.addEventListener("touchstart", handleTouchStart, { passive: false });
+  gameArea.addEventListener("touchmove", handleTouchMove, { passive: false });
+  gameArea.addEventListener("touchend", handleTouchEnd, { passive: false });
+  gameArea.addEventListener("touchcancel", handleTouchEnd, { passive: false });
+
+  overlayEl.addEventListener("touchstart", (e) => {
+    e.preventDefault();
+    if (!gameState.running) startGame();
+  }, { passive: false });
 
   gameState.bestTime = loadBestTime();
   centerPlayer();
@@ -306,4 +362,52 @@ if (document.readyState === "loading") {
   bootstrap();
 }
 
+const soundToggleBtn = document.getElementById("sound-toggle");
+const soundIcon = document.getElementById("sound-icon");
 
+// Background music
+const bgMusic = new Audio("./assets/bg.mp3");
+bgMusic.loop = true;
+bgMusic.volume = 0.35;
+
+// Sound state (default ON, no autoplay)
+let isSoundOn = true;
+
+/* =============================== */
+/* Toggle Button Logic */
+/* =============================== */
+soundToggleBtn.addEventListener("click", () => {
+  isSoundOn = !isSoundOn;
+
+  soundIcon.src = isSoundOn
+    ? "./assets/Sound_On.png"
+    : "./assets/Sound_Off.png";
+
+  soundIcon.alt = isSoundOn ? "Sound On" : "Sound Off";
+
+  if (isSoundOn && gameState.running) {
+    bgMusic.play().catch(() => {});
+  } else {
+    bgMusic.pause();
+  }
+});
+
+/* =============================== */
+/* Game Lifecycle Hooks */
+/* =============================== */
+
+const originalStartGame = startGame;
+startGame = function () {
+  originalStartGame();
+
+  if (isSoundOn) {
+    bgMusic.currentTime = 0;
+    bgMusic.play().catch(() => {});
+  }
+};
+
+const originalEndGame = endGame;
+endGame = function () {
+  originalEndGame();
+  bgMusic.pause();
+};
