@@ -194,6 +194,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
+  justify-content: center;
 }
 .hint-key {
   display: inline-flex;
@@ -249,6 +250,8 @@
     margin-bottom: 5px; /* On some smaller devices the footer sticked to the bottom , so to avoid that gave a small margin bottom */
   }
 }
+/* Pause Button*/
+
 /* ===================================== */
 /* Sound Toggle (Image Based) */
 /* ===================================== */
@@ -266,7 +269,7 @@
 }
 
 .sound-toggle-header img {
-  width: 29px;
+  width: 28px;
   height: 28px;
   display: block;
 }

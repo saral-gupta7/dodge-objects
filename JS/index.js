@@ -14,6 +14,8 @@ const GAME_CONFIG = {
 const gameArea = document.getElementById("game-area");
 const playerEl = document.getElementById("player");
 const overlayEl = document.getElementById("overlay");
+const pauseButtonEl = document.getElementById("pause-button");
+const pauseIconEl = document.getElementById("pause-icon");
 const restartButtonEl = document.getElementById("restart-button");
 const currentTimeEl = document.getElementById("current-time");
 const bestTimeEl = document.getElementById("best-time");
@@ -32,6 +34,8 @@ const inputState = {
 
 const gameState = {
   running: false,
+  paused: false,
+  lastPausedTime: 0,
   lastFrameTime: 0,
   startTime: 0,
   elapsed: 0,
@@ -68,6 +72,9 @@ function handleKeyDown(event) {
   } else if (event.key === " " && !gameState.running) {
     event.preventDefault();
     startGame();
+  } else if ( event.key === "P" || event.key === "p"){
+    event.preventDefault();
+    togglePause();
   }
 }
 
@@ -179,6 +186,12 @@ function endGame() {
 // Game loop and mechanics
 function gameLoop(timestamp) {
   if (!gameState.running) return;
+
+  if (gameState.paused) {
+    gameState.lastFrameTime = timestamp;
+    gameState.frameHandle = requestAnimationFrame(gameLoop);      
+    return;
+  } 
 
   const deltaMs = timestamp - gameState.lastFrameTime;
   const deltaSeconds = deltaMs / 1000;
@@ -330,11 +343,27 @@ function updateTimeDisplays(currentSeconds, bestSeconds) {
   bestTimeEl.textContent = formatSeconds(bestSeconds);
 }
 
+function togglePause(){
+  if (!gameState.running)return;
+
+  if(gameState.paused){
+    pauseIconEl.src = "./assets/pause.png";
+    //adding offset to correct the new start time, accounting for the pause
+    gameState.startTime+=performance.now()-gameState.lastPausedTime;
+    gameState.lastFrameTime=performance.now();
+  }else{
+    pauseIconEl.src = "./assets/resume.png";
+    gameState.lastPausedTime=performance.now();
+  }
+  gameState.paused=!gameState.paused;
+}
+
 // Initialisation
 function bootstrap() {
   document.addEventListener("keydown", handleKeyDown);
   document.addEventListener("keyup", handleKeyUp);
   restartButtonEl.addEventListener("click", () => startGame());
+  pauseButtonEl.addEventListener("click", togglePause);
 
   gameArea.addEventListener("touchstart", handleTouchStart, { passive: false });
   gameArea.addEventListener("touchmove", handleTouchMove, { passive: false });
