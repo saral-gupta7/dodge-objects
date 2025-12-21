@@ -74,6 +74,9 @@
   border-radius: 0.8rem;
   overflow: hidden;
   box-shadow: inset 0 0 0 1px rgba(148, 163, 184, 0.35);
+  touch-action: none;
+  -webkit-user-select: none;
+  user-select: none;
 }
 
 .player {
@@ -181,7 +184,7 @@
   padding-bottom: 10px;
   justify-content: center;
   align-items: center;
-  font-size: 1 rem;
+  font-size: 1rem;
   color: #313944;
   backdrop-filter: blur(30px);
   border-radius: 10px;
@@ -191,6 +194,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
+  justify-content: center;
 }
 .hint-key {
   display: inline-flex;
@@ -221,6 +225,32 @@
   }
 }
 
+.btn-restart {
+  margin-left: 1.5rem;
+  padding: 0.5rem 1.2rem;
+  border: 2px solid #0f8f5e;
+  border-radius: 999px;
+  background: transparent;
+  color: #0f8f5e;
+  font-weight: 700;
+  font-size: 0.85rem;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.05rem;
+  transition: all 0.2s ease;
+}
+
+.btn-restart:hover {
+  background: #0f8f5e;
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(15, 143, 94, 0.2);
+}
+
+.btn-restart:active {
+  transform: translateY(0);
+}
+
 /* Small screens */
 @media (max-width: 640px) {
   .game-header {
@@ -245,4 +275,42 @@
     gap: 0.25rem;
     margin-bottom: 5px; /* On some smaller devices the footer sticked to the bottom , so to avoid that gave a small margin bottom */
   }
+
+  .btn-restart {
+    margin-left: 0;
+    margin-top: 0.5rem;
+    width: 100%;
+  }
+}
+/* Pause Button*/
+
+/* ===================================== */
+/* Sound Toggle (Image Based) */
+/* ===================================== */
+
+.sound-toggle-header {
+  background: transparent;
+  border: none;
+  padding: 0;
+
+  cursor: pointer;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sound-toggle-header img {
+  width: 28px;
+  height: 28px;
+  display: block;
+}
+
+/* Optional subtle hover */
+.sound-toggle-header:hover {
+  transform: scale(1.08);
+}
+
+.sound-toggle-header:active {
+  transform: scale(0.95);
 }

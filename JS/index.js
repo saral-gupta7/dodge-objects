@@ -9,15 +9,24 @@ const GAME_CONFIG = {
   spawnIntervalStep: 16,
   maxObstacles: 8,
 };
+// Difficulty configuration(newly added)
+const DIFFICULTY_CONFIG = {
+  levelDuration: 10000, 
+  maxLevel: 15,
+};
+
 
 // using document.getElementById to get the elements from the HTML
 const gameArea = document.getElementById("game-area");
 const playerEl = document.getElementById("player");
 const overlayEl = document.getElementById("overlay");
+const pauseButtonEl = document.getElementById("pause-button");
+const pauseIconEl = document.getElementById("pause-icon");
 const restartButtonEl = document.getElementById("restart-button");
 const currentTimeEl = document.getElementById("current-time");
 const bestTimeEl = document.getElementById("best-time");
 const finalTimeEl = document.getElementById("final-time");
+const uiRestartBtn = document.getElementById("ui-restart-button");
 
 const playerState = {
   x: 0,
@@ -32,6 +41,8 @@ const inputState = {
 
 const gameState = {
   running: false,
+  paused: false,
+  lastPausedTime: 0,
   lastFrameTime: 0,
   startTime: 0,
   elapsed: 0,
@@ -40,6 +51,9 @@ const gameState = {
   timeSinceLastSpawn: 0,
   bestTime: 0,
   frameHandle: null,
+  //initialised for difficulty level tracking(newly added)
+  difficultyLevel: 0,
+
 };
 
 // Persist best time between page reloads
@@ -68,6 +82,9 @@ function handleKeyDown(event) {
   } else if (event.key === " " && !gameState.running) {
     event.preventDefault();
     startGame();
+  } else if ( event.key === "P" || event.key === "p"){
+    event.preventDefault();
+    togglePause();
   }
 }
 
@@ -79,6 +96,53 @@ function handleKeyUp(event) {
     inputState.right = false;
     event.preventDefault();
   }
+}
+
+const touchState = {
+  active: false,
+  startX: 0
+};
+
+function handleTouchStart(event) {
+  if (event.touches.length === 0) {
+    return;
+  }
+  const tap = event.touches[0];
+  touchState.active = true;
+  touchState.startX = tap.clientX;
+  if (!gameState.running) {
+    startGame();
+  }
+  event.preventDefault();
+}
+
+function handleTouchMove(event) {
+  if (!touchState.active) {
+    return;
+  }
+  if (event.touches.length === 0) {
+    return;
+  }
+  const tap = event.touches[0];
+  const deltaX = tap.clientX - touchState.startX;
+
+  if (Math.abs(deltaX) <= 12) {
+    inputState.left = false;
+    inputState.right = false;
+  } else if (deltaX < 0) {
+    inputState.left = true;
+    inputState.right = false;
+  } else {
+    inputState.left = false;
+    inputState.right = true;
+  }
+  event.preventDefault();
+}
+
+function handleTouchEnd() {
+  touchState.active = false;
+  inputState.left = false;
+  inputState.right = false;
 }
 
 // Core game lifecycle
@@ -94,6 +158,9 @@ function startGame() {
   gameState.obstacleSpeed = GAME_CONFIG.obstacleSpeedStart;
   gameState.spawnInterval = GAME_CONFIG.spawnIntervalStart;
   gameState.timeSinceLastSpawn = 0;
+  //resetting difficulty level to 0(newly added)
+  gameState.difficultyLevel = 0;
+
 
   centerPlayer();
   updateTimeDisplays(0, gameState.bestTime);
@@ -128,16 +195,56 @@ function endGame() {
   overlayEl.classList.remove("overlay--hidden");
   overlayEl.setAttribute("aria-hidden", "false");
 }
+// Difficulty adjustment based on elapsed time(newly added)
+function updateDifficulty(elapsedMs) {
+  const level = Math.min(
+    Math.floor(elapsedMs / DIFFICULTY_CONFIG.levelDuration),
+    DIFFICULTY_CONFIG.maxLevel
+  );
+
+  if (level === gameState.difficultyLevel) return;
+
+  gameState.difficultyLevel = level;
+
+  // Faster objects
+  gameState.obstacleSpeed =
+    GAME_CONFIG.obstacleSpeedStart +
+    level * GAME_CONFIG.obstacleSpeedIncrement;
+
+  // Shorter spawn interval
+  gameState.spawnInterval = Math.max(
+    GAME_CONFIG.spawnIntervalMin,
+    GAME_CONFIG.spawnIntervalStart -
+      level * GAME_CONFIG.spawnIntervalStep
+  );
+// Debug output to console
+ /*  console.log(
+  "Level:", level,
+  "Speed:", gameState.obstacleSpeed,
+  "Spawn:", gameState.spawnInterval,
+  "MaxObs:", 4 + level
+); */
+
+}
+
 
 // Game loop and mechanics
 function gameLoop(timestamp) {
   if (!gameState.running) return;
+
+  if (gameState.paused) {
+    gameState.lastFrameTime = timestamp;
+    gameState.frameHandle = requestAnimationFrame(gameLoop);      
+    return;
+  } 
 
   const deltaMs = timestamp - gameState.lastFrameTime;
   const deltaSeconds = deltaMs / 1000;
   gameState.lastFrameTime = timestamp;
 
   gameState.elapsed = timestamp - gameState.startTime;
+  // Update difficulty based on elapsed time (newly added)
+  updateDifficulty(gameState.elapsed);
   updateTimeDisplays(gameState.elapsed / 1000, gameState.bestTime);
 
   movePlayer(deltaSeconds);
@@ -180,23 +287,35 @@ function movePlayer(deltaSeconds) {
   playerEl.style.left = `${nextX}px`;
 }
 
-// Obstacle management
+// Obstacle management 
 function createObstacle() {
-  if (activeObstacles.length >= GAME_CONFIG.maxObstacles) {
+
+ /*  if (activeObstacles.length >= GAME_CONFIG.maxObstacles) {
     return;
-  }
+  } */
+ //dynamic max obstacles based on difficulty level(newly added)
+ const dynamicMax = 4 + gameState.difficultyLevel;
+if (activeObstacles.length >= dynamicMax) return;
+
 
   const obstacleEl = document.createElement("div");
   obstacleEl.className = "obstacle";
 
   const areaRect = gameArea.getBoundingClientRect();
-  const obstacleRectWidth = 32;
+ //
+  // const obstacleRectWidth = 32;
   const padding = 4;
-  const x =
-    Math.random() * (areaRect.width - obstacleRectWidth - padding * 2) +
+  // Random size between 20px and 46px
+  const size = 20 + Math.random() * 26; // 20px–46px
+ // Set size
+  obstacleEl.style.width = `${size}px`;
+  obstacleEl.style.height = `${size}px`;
+ // Random horizontal position within game area
+ 
+ const x =
+    Math.random() * (areaRect.width - size - padding * 2) +
     padding;
-
-  obstacleEl.style.left = `${x}px`;
+   obstacleEl.style.left = `${x}px`;
   obstacleEl.style.top = "-42px";
   gameArea.appendChild(obstacleEl);
 
@@ -228,22 +347,23 @@ function updateObstacles(deltaSeconds) {
 
 function maybeSpawnObstacle(deltaMs) {
   gameState.timeSinceLastSpawn += deltaMs;
-
+//initially difficulty was increasaing based on obstacle spawned
   if (gameState.timeSinceLastSpawn < gameState.spawnInterval) {
     return;
   }
 
   createObstacle();
   gameState.timeSinceLastSpawn = 0;
-
-  if (gameState.spawnInterval > GAME_CONFIG.spawnIntervalMin) {
+// Difficulty increase removed from here
+  /* if (gameState.spawnInterval > GAME_CONFIG.spawnIntervalMin) {
     gameState.spawnInterval = Math.max(
       GAME_CONFIG.spawnIntervalMin,
       gameState.spawnInterval - GAME_CONFIG.spawnIntervalStep
     );
   }
 
-  gameState.obstacleSpeed += GAME_CONFIG.obstacleSpeedIncrement;
+  gameState.obstacleSpeed += GAME_CONFIG.obstacleSpeedIncrement; 
+   *///now after commenting this difficulty increased has no relation with spawning
 }
 
 function clearObstacles() {
@@ -283,11 +403,41 @@ function updateTimeDisplays(currentSeconds, bestSeconds) {
   bestTimeEl.textContent = formatSeconds(bestSeconds);
 }
 
+function togglePause(){
+  if (!gameState.running)return;
+
+  if(gameState.paused){
+    pauseIconEl.src = "./assets/pause.png";
+    //adding offset to correct the new start time, accounting for the pause
+    gameState.startTime+=performance.now()-gameState.lastPausedTime;
+    gameState.lastFrameTime=performance.now();
+  }else{
+    pauseIconEl.src = "./assets/resume.png";
+    gameState.lastPausedTime=performance.now();
+  }
+  gameState.paused=!gameState.paused;
+}
+
 // Initialisation
 function bootstrap() {
   document.addEventListener("keydown", handleKeyDown);
   document.addEventListener("keyup", handleKeyUp);
   restartButtonEl.addEventListener("click", () => startGame());
+  pauseButtonEl.addEventListener("click", togglePause);
+
+  uiRestartBtn.addEventListener("click", () => {
+    startGame();
+    uiRestartBtn.blur();
+  });
+  gameArea.addEventListener("touchstart", handleTouchStart, { passive: false });
+  gameArea.addEventListener("touchmove", handleTouchMove, { passive: false });
+  gameArea.addEventListener("touchend", handleTouchEnd, { passive: false });
+  gameArea.addEventListener("touchcancel", handleTouchEnd, { passive: false });
+
+  overlayEl.addEventListener("touchstart", (e) => {
+    e.preventDefault();
+    if (!gameState.running) startGame();
+  }, { passive: false });
 
   gameState.bestTime = loadBestTime();
   centerPlayer();
@@ -300,4 +450,52 @@ if (document.readyState === "loading") {
   bootstrap();
 }
 
+const soundToggleBtn = document.getElementById("sound-toggle");
+const soundIcon = document.getElementById("sound-icon");
 
+// Background music
+const bgMusic = new Audio("./assets/bg.mp3");
+bgMusic.loop = true;
+bgMusic.volume = 0.35;
+
+// Sound state (default ON, no autoplay)
+let isSoundOn = true;
+
+/* =============================== */
+/* Toggle Button Logic */
+/* =============================== */
+soundToggleBtn.addEventListener("click", () => {
+  isSoundOn = !isSoundOn;
+
+  soundIcon.src = isSoundOn
+    ? "./assets/Sound_On.png"
+    : "./assets/Sound_Off.png";
+
+  soundIcon.alt = isSoundOn ? "Sound On" : "Sound Off";
+
+  if (isSoundOn && gameState.running) {
+    bgMusic.play().catch(() => {});
+  } else {
+    bgMusic.pause();
+  }
+});
+
+/* =============================== */
+/* Game Lifecycle Hooks */
+/* =============================== */
+
+const originalStartGame = startGame;
+startGame = function () {
+  originalStartGame();
+
+  if (isSoundOn) {
+    bgMusic.currentTime = 0;
+    bgMusic.play().catch(() => {});
+  }
+};
+
+const originalEndGame = endGame;
+endGame = function () {
+  originalEndGame();
+  bgMusic.pause();
+};

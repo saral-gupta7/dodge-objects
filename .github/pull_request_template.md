@@ -16,13 +16,13 @@ Fixes #<issue-number>
 
 ## Testing Done
 
-- [ ] Tested in Chrome
+- [x] Tested in Chrome
 
 - [ ] Tested in Firefox
 
-- [ ] Tested in Safari/Edge
+- [x] Tested in Safari/Edge
 
-- [ ] Tested on mobile viewport
+- [x] Tested on mobile viewport
 
 ## Checklist
 
