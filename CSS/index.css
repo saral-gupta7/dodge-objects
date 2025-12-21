@@ -194,6 +194,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
+  justify-content: center;
 }
 .hint-key {
   display: inline-flex;
@@ -281,6 +282,8 @@
     width: 100%;
   }
 }
+/* Pause Button*/
+
 /* ===================================== */
 /* Sound Toggle (Image Based) */
 /* ===================================== */
@@ -298,7 +301,7 @@
 }
 
 .sound-toggle-header img {
-  width: 29px;
+  width: 28px;
   height: 28px;
   display: block;
 }
